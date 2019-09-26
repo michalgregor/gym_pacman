@@ -163,6 +163,7 @@ class GymPacman(gym.Env):
     to make the task more manageable.
     * layout: The name of the game layout.
     * layoutPath: Path to the layout files folder.
+    * illegalAllowed: If True, illegal actions do not raise an exception.
     """ 
     def __init__(self, obsType="ndarray", allowStop=False,
                  numericActions=True, rewardShaping=True, **args):        
