@@ -164,6 +164,8 @@ class GymPacman(gym.Env):
     * layout: The name of the game layout.
     * layoutPath: Path to the layout files folder.
     * illegalAllowed: If True, illegal actions do not raise an exception.
+    * quietGraphics: If True, graphics are suppressed.
+    * textGraphics: If True, text graphics are used instead of the regular.
     """ 
     def __init__(self, obsType="ndarray", allowStop=False,
                  numericActions=True, rewardShaping=True, **args):        

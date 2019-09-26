@@ -17,5 +17,6 @@ gym.envs.registration.register(
     id=env_name,
     entry_point='gym_pacman:GymPacman',
     max_episode_steps=0,
-    kwargs=dict(illegalAllowed=True)
+    kwargs=dict(illegalAllowed=True,
+                quietGraphics=True)
 )
