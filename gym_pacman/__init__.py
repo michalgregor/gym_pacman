@@ -16,4 +16,5 @@ if env_name in gym.envs.registry.env_specs:
 gym.envs.registration.register(
     id=env_name,
     entry_point='gym_pacman:GymPacman',
+    max_episode_steps=0
 )
