@@ -3,7 +3,7 @@
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-VERSION = "1.001"
+VERSION = "1.01"
 
 from gym_interface import *
 import gym
@@ -16,7 +16,5 @@ if env_name in gym.envs.registry.env_specs:
 gym.envs.registration.register(
     id=env_name,
     entry_point='gym_pacman:GymPacman',
-    max_episode_steps=0,
-    kwargs=dict(illegalAllowed=True,
-                quietGraphics=True)
+    max_episode_steps=0
 )
