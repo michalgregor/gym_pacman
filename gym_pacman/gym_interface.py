@@ -62,7 +62,8 @@ class PacmanThread(threading.Thread):
             'timeout': 0.1,
             'numTraining': 0,
             'maxSteps': None,  # None
-            'illegalAllowed': False
+            'illegalAllowed': False,
+            'verbose': True
         }
         
         # fill in any matching values from self.args
@@ -166,13 +167,15 @@ class GymPacman(gym.Env):
     * illegalAllowed: If True, illegal actions do not raise an exception.
     * quietGraphics: If True, graphics are suppressed.
     * textGraphics: If True, text graphics are used instead of the regular.
+    * verbose: If True, episodes states will be printed.
     """
     def __init__(self, obsType="ndarray", allowStop=False,
                  numericActions=True, rewardShaping=True,
                  illegalAllowed=True, quietGraphics=True,
-                 **args):
+                 verbose=False, **args):
         args.update(illegalAllowed=illegalAllowed,
-                    quietGraphics=quietGraphics)
+                    quietGraphics=quietGraphics,
+                    verbose=verbose)
         self.agentI = None
         self.args = args
         self.pacmanThread = None

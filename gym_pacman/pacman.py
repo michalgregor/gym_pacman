@@ -315,9 +315,9 @@ class ClassicGameRules:
 
     def agentCrash(self, game, agentIndex):
         if agentIndex == 0:
-            print("Pacman crashed")
+            if not self.quiet: print("Pacman crashed")
         else:
-            print("A ghost crashed")
+            if not self.quiet: print("A ghost crashed")
 
     def getMaxTotalTime(self, agentIndex):
         return self.timeout
@@ -601,7 +601,7 @@ def readCommand( argv ):
 
     # Special case: recorded games don't use the runGames method or args structure
     if options.gameToReplay != None:
-        print('Replaying recorded game %s.' % options.gameToReplay)
+        if not self.quiet: print('Replaying recorded game %s.' % options.gameToReplay)
         import pickle
         f = open(options.gameToReplay)
         try: recorded = pickle.load(f)
@@ -663,7 +663,8 @@ def replayGame( layout, actions, display, maxSteps=None, illegalAllowed=False):
     display.finish()
 
 def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0,
-	      catchExceptions=False, timeout=30, maxSteps=None, illegalAllowed=False):
+	      catchExceptions=False, timeout=30, maxSteps=None, illegalAllowed=False,
+          verbose=True):
     import __main__
     __main__.__dict__['_display'] = display
 
@@ -673,7 +674,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     for i in range( numGames ):
         beQuiet = i < numTraining
         if beQuiet:
-                # Suppress output and graphics
+            # Suppress output and graphics
             import textDisplay
             gameDisplay = textDisplay.NullGraphics()
             rules.quiet = True
@@ -681,7 +682,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
             gameDisplay = display
             rules.quiet = False
         game = rules.newGame( layout, pacman, ghosts, gameDisplay,
-                              beQuiet, catchExceptions,
+                              beQuiet or not verbose, catchExceptions,
                               illegalAllowed=illegalAllowed)
         game.run()
         if not beQuiet: games.append(game)
@@ -698,10 +699,12 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         scores = [game.state.getScore() for game in games]
         wins = [game.state.isWin() for game in games]
         winRate = wins.count(True)/ float(len(wins))
-        print('Average Score:', sum(scores) / float(len(scores)))
-        print('Scores:       ', ', '.join([str(score) for score in scores]))
-        print('Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate))
-        print('Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins]))
+        
+        if verbose:
+            print('Average Score:', sum(scores) / float(len(scores)))
+            print('Scores:       ', ', '.join([str(score) for score in scores]))
+            print('Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate))
+            print('Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins]))
 
     return games
 
