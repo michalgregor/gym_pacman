@@ -8,13 +8,23 @@ VERSION = "1.01"
 from gym_interface import *
 import gym
 
-env_name = 'GymPacman-v0'
+env_name = ''
 
-if env_name in gym.envs.registry.env_specs:
-    del gym.envs.registry.env_specs[env_name]
-    
+def unregister(env_name):
+    if env_name in gym.envs.registry.env_specs:
+        del gym.envs.registry.env_specs[env_name]
+
+unregister('GymPacman-v0')
 gym.envs.registration.register(
-    id=env_name,
+    id='GymPacman-v0',
     entry_point='gym_pacman:GymPacman',
     max_episode_steps=0
+)
+
+unregister('GymPacmanRaw-v0')
+gym.envs.registration.register(
+    id='GymPacmanRaw-v0',
+    entry_point='gym_pacman:GymPacman',
+    max_episode_steps=0,
+    kwargs=dict(obsType='raw')
 )
