@@ -18,13 +18,13 @@ unregister('GymPacman-v0')
 gym.envs.registration.register(
     id='GymPacman-v0',
     entry_point='gym_pacman:GymPacman',
-    max_episode_steps=0
+    max_episode_steps=None
 )
 
 unregister('GymPacmanRaw-v0')
 gym.envs.registration.register(
     id='GymPacmanRaw-v0',
     entry_point='gym_pacman:GymPacman',
-    max_episode_steps=0,
+    max_episode_steps=None,
     kwargs=dict(obsType='raw')
 )
